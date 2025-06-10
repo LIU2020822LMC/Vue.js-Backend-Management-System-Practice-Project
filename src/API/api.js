@@ -7,28 +7,28 @@ import request from "./request";
 export default {
   getTableData() {
     return request({
-      url: "/home/getTableData",
+      url: "/api/home/getTableData",
       method: "get",
     });
   },
 
   getCountData() {
     return request({
-      url: "/home/getCountData",
+      url: "/api/home/getCountData",
       method: "get",
     });
   },
 
   getChartData() {
     return request({
-      url: "/home/getChartData",
+      url: "/api/home/getChartData",
       method: "get",
     });
   },
 
   getUserData(data) {
     return request({
-      url: "/user/getUserData",
+      url: "/api/user/getUserData",
       method: "get",
       data,
     });
@@ -36,30 +36,30 @@ export default {
 
   deleteUser(data) {
     return request({
-      url: "/user/deleteUserData",
+      url: "/api/user/deleteUserData",
       method: "get",
       data,
     });
   },
   addUser(data) {
     return request({
-      url: "/user/addUserData",
+      url: "/api/user/addUserData",
       method: "post",
       data,
     });
   },
   editUser(data) {
     return request({
-      url: "/user/editUserData",
+      url: "/api/user/editUserData",
       method: "post",
       data,
     });
   },
   getMenu(params){
     return request({
-      url:'/permission/getMenu',
-      method:'post',
-      data:params
-    })
+      url: "/api/permission/getMenu",
+      method: "post",
+      data: params,
+    });
   }
 };
