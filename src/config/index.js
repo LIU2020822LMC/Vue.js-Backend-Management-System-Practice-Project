@@ -1,5 +1,3 @@
-
-
 const env = import.meta.env.MODE || "prod";
 const EnvConfig = {
   development: {

@@ -10,6 +10,9 @@ import "@/API/mock.js"
 import api from "@/API/api"
 import { useAllDataStore } from './stores';
 
+
+
+
 //实现如果用户未登录将强制跳转到login页面的函数
 function isRoute(to){
   let res = router.getRoutes();
