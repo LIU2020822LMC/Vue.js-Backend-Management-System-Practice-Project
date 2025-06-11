@@ -65,10 +65,15 @@ export const useAllDataStore = defineStore("allData", () => {
     //定义菜单格式化后的路由数组
     const routerArr = [];
     //格式化菜单路由
+    if (!Array.isArray(menu)) return; // 确保 menu 是数组
     menu.forEach((item) => {
+      if (!item) return; // 跳过空值元素
       //菜单有children
-      if (item.children) {
+      if (item.children && Array.isArray(item.children)) {
+        // 修复：过滤 children 中的空值
+        item.children = item.children.filter((child) => !!child);
         item.children.forEach((val) => {
+          if (!val.url) return; // 跳过无效路由项
           let url = `../views/${val.url}.vue`;
           val.component = module[url];
         });
@@ -79,26 +84,28 @@ export const useAllDataStore = defineStore("allData", () => {
         routerArr.push(item);
       }
     });
-    state.value.routerList = [];
-    let routes = router.getRoutes();
-    routes.forEach((item) => {
-      if (item.name == "main" || item.name == "login" || item.name == "404") {
-        return;
-      } else {
-        router.removeRoute(item.name);
-      }
-    });
-    routerArr.forEach((item) => {
-      state.value.routerList.push(router.addRoute("main", item));
-    });
+   if (routerArr.length > 0) {
+     state.value.routerList = [];
+     let routes = router.getRoutes();
+     routes.forEach((item) => {
+       if (item.name == "main" || item.name == "login" || item.name == "404") {
+         return;
+       } else {
+         router.removeRoute(item.name);
+       }
+     });
+     routerArr.forEach((item) => {
+       state.value.routerList.push(router.addRoute("main", item));
+     });
+   }
   }
-  function clean(){
-    state.value.routerList.forEach((item)=>{
-      if(item)item();
-    })
+  function clean() {
+    state.value.routerList.forEach((item) => {
+      if (item) item();
+    });
     state.value = initState();
     //删除我们本地的缓存
-    localStorage.removeItem("store")
+    localStorage.removeItem("store");
   }
   return {
     state,

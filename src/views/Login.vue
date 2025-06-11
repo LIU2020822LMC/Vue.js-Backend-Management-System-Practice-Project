@@ -13,7 +13,11 @@ const store = useAllDataStore()
 const router = useRouter()
 const handleLogin = async () =>{
   const res = await proxy.$api.getMenu(loginForm)
-    //
+  // 添加数据验证
+  if (!res?.menuList || !Array.isArray(res.menuList)) {
+    console.error("Invalid menuList data:", res.menuList);
+    return;
+  }
   store.updateMenuList(res.menuList)
   store.state.token = res.token
   router.push('/home')
